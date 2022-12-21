@@ -1,14 +1,22 @@
 package com.example.kanyerestquotes
 
 import android.animation.ObjectAnimator
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.lifecycle.ViewModel
-
+import androidx.lifecycle.viewModelScope
+import com.example.kanyerestquotes.data.Repository
+import kotlinx.coroutines.launch
 
 
 class MainViewModel: ViewModel() {
+
+
+    val repository = Repository()
+
+    val quotes = repository.quotes
 
 
     fun buttonAnimator(button: Button) {
@@ -17,6 +25,17 @@ class MainViewModel: ViewModel() {
         val animatorTwo = ObjectAnimator.ofFloat(button, View.ROTATION_X, 0f, 360f)
         animatorTwo.duration = 500
         animatorTwo.start()
+    }
+
+    fun getQuote() {
+        viewModelScope.launch {
+            try {
+                repository.getQuote()
+            } catch (e:Exception) {
+                Log.e("MainViewModel","$e")
+
+            }
+        }
     }
 
 }
