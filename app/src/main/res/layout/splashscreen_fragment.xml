@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,48 +12,23 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_green_orange">
 
-        <TextView
-            android:id="@+id/titletext_home"
+        <ImageView
+            android:id="@+id/gifImage_splash"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="@font/alex_brush"
-            android:shadowColor="#000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
-            android:shadowRadius="15"
-            android:text="Kanye West Quotes"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="60sp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/kanyeWestText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.48"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/refresh_button"
-            android:layout_width="344dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="100dp"
-            android:background="@drawable/gradient_new"
-            android:fontFamily="@font/hammersmith_one"
-            android:text="Refresh"
-            android:textSize="20sp"
-            android:typeface="normal"
-            app:cornerRadius="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/creator_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/Welcometext_Cardview_home"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/creator_text"
+            android:id="@+id/kanyeWestText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -67,22 +42,38 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <Button
+            android:id="@+id/start_button_splash"
+            android:layout_width="344dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="100dp"
+            android:background="@drawable/gradient_new"
+            android:fontFamily="@font/hammersmith_one"
+            android:text="Enjoy"
+            android:textSize="20sp"
+            android:typeface="normal"
+            app:cornerRadius="15dp"
+            app:layout_constraintBottom_toTopOf="@+id/kanyeWestText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/quotes_Cardview_home"
+            android:id="@+id/Welcometext_Cardview_home"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
             android:background="@color/black"
             app:cardCornerRadius="15dp"
             app:cardElevation="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/refresh_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titletext_home">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -90,14 +81,14 @@
                 android:background="@color/black">
 
                 <TextView
-                    android:id="@+id/quotes_text"
+                    android:id="@+id/Welcome_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="&quot;I am the head of Adidas. I will bring Adidas and Puma back together and bring me and jay back together&quot;"
+                    android:text="Welcome, to the mighty Kanye West quotes..."
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
@@ -105,6 +96,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
