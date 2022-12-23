@@ -5,9 +5,12 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kanyerestquotes.data.Repository
+import com.example.kanyerestquotes.data.model.KanyeData
 import kotlinx.coroutines.launch
 
 
@@ -17,6 +20,10 @@ class MainViewModel: ViewModel() {
     val repository = Repository()
 
     val quotes = repository.quotes
+
+    val _quotesList = MutableLiveData<List<KanyeData>>()
+            var quotesList = MutableLiveData<List<KanyeData>>()
+            get() = _quotesList
 
 
     fun buttonAnimator(button: Button) {

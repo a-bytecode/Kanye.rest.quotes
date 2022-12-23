@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.kanyerestquotes.MainViewModel
+import com.example.kanyerestquotes.data.model.KanyeData
 import com.example.kanyerestquotes.databinding.DetailFragmentBinding
 
 class DetailFragment: Fragment() {
@@ -31,11 +32,8 @@ class DetailFragment: Fragment() {
 
         val quoteId = requireArguments().getInt("quoteId")
 
-        viewModel.quotes.observe(viewLifecycleOwner, Observer {
+        val quote = viewModel.quotesList.value?.get(quoteId)
 
-        })
-
-
+        binding.quotesTextDetail.text = quote!!.quote
     }
-
 }
