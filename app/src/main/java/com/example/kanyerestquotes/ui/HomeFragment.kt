@@ -43,7 +43,7 @@ class HomeFragment: Fragment() {
 
         viewModel.quotes.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                binding.quotesText.setText(it.quote)
+                binding.quotesTextHome.setText(it.quote)
             }
         })
 

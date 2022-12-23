@@ -31,7 +31,6 @@ class SplashFragment: Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         Glide
@@ -43,6 +42,10 @@ class SplashFragment: Fragment() {
 
         binding.startButtonSplash.setOnClickListener {
             findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
+        }
+
+        binding.showQuotesButton.setOnClickListener {
+            findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToListFragment())
         }
     }
 
