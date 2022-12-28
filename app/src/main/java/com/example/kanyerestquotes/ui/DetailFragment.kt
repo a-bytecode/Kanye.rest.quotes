@@ -26,9 +26,7 @@ class DetailFragment: Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
 
         val quoteId = requireArguments().getInt("quoteId")
 
