@@ -39,16 +39,9 @@ class List_Fragment: Fragment() {
 
 
         viewModel.quotes.observe(viewLifecycleOwner, Observer {
+
             quoteAdapter.submitlist(it)
         })
-
-
-
-
-
-
-
-
 
     }
 }
