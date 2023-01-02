@@ -26,7 +26,7 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
     val quote = repository.quote
 
     val _quotesList = MutableLiveData<MutableList<KanyeData>>()
-            var quotesList = MutableLiveData<MutableList<KanyeData>>()
+        var quotesList = MutableLiveData<MutableList<KanyeData>>()
             get() = _quotesList
 
 

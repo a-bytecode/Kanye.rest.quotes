@@ -15,10 +15,9 @@ class QuotesAdapter: RecyclerView.Adapter<QuotesAdapter.ItemViewHolder>() {
 
     private var dataset = listOf<KanyeData>()
 
-    fun submitlist(quotesList: List<KanyeData>) {
-        dataset = quotesList
+    fun submitlist(quoteList: List<KanyeData>) {
+        dataset = quoteList
         notifyDataSetChanged()
-
     }
 
     class ItemViewHolder(view: View):RecyclerView.ViewHolder(view) {

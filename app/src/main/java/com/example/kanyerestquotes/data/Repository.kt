@@ -16,7 +16,6 @@ class Repository(private val database: QuoteDatabase) {
 
 
     suspend fun getQuote() {
-
         val response = UserApi.retrofitService.getQuote()
         Log.d("REPO", "Kanye ${response}")
         database.QuoteDatabaseDao.insert(response)

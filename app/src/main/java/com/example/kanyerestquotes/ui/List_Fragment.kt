@@ -36,7 +36,7 @@ class List_Fragment: Fragment() {
         binding.quotesRecycler.adapter = quoteAdapter
 
 
-        viewModel._quotesList.observe(viewLifecycleOwner, Observer {
+        viewModel.quotesList.observe(viewLifecycleOwner, Observer {
             quoteAdapter.submitlist(it)
         })
 
