@@ -1,5 +1,6 @@
 package com.example.kanyerestquotes.data.remote
 
+import androidx.lifecycle.LiveData
 import com.example.kanyerestquotes.data.model.KanyeData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -25,7 +26,7 @@ private val retrofit = Retrofit.Builder()
 
 interface UserApiService {
     @GET("https://api.kanye.rest")
-    suspend fun getQuote(): KanyeData
+    suspend fun getQuote(): LiveData<KanyeData>
 }
 
 object UserApi {

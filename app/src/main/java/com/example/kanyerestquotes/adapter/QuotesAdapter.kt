@@ -9,15 +9,14 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kanyerestquotes.R
 import com.example.kanyerestquotes.data.model.KanyeData
-import com.example.kanyerestquotes.ui.DetailFragmentDirections
 import com.example.kanyerestquotes.ui.List_FragmentDirections
 
 class QuotesAdapter: RecyclerView.Adapter<QuotesAdapter.ItemViewHolder>() {
 
     private var dataset = listOf<KanyeData>()
 
-    fun submitlist(quote : KanyeData) {
-        dataset = listOf(quote)
+    fun submitlist(quotesList: List<KanyeData>) {
+        dataset = quotesList
         notifyDataSetChanged()
 
     }

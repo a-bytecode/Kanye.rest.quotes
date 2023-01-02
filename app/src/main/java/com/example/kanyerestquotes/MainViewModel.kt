@@ -4,8 +4,6 @@ import android.animation.ObjectAnimator
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.ImageButton
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,10 +17,10 @@ class MainViewModel: ViewModel() {
 
     val repository = Repository()
 
-    val quotes = repository.quotes
+    val quote = repository.quote
 
-    val _quotesList = MutableLiveData<List<KanyeData>>()
-            var quotesList = MutableLiveData<List<KanyeData>>()
+    val _quotesList = MutableLiveData<MutableList<KanyeData>>()
+            var quotesList = MutableLiveData<MutableList<KanyeData>>()
             get() = _quotesList
 
 
@@ -38,6 +36,8 @@ class MainViewModel: ViewModel() {
         viewModelScope.launch {
             try {
                 repository.getQuote()
+                val response = repository.getQuote()
+                response.value?.let { _quotesList.value?.add(it) }
             } catch (e:Exception) {
                 Log.e("MainViewModel","$e")
 

@@ -9,15 +9,17 @@ import com.example.kanyerestquotes.data.remote.UserApi
 class Repository {
 
 
-    private val _quotes = MutableLiveData<KanyeData>()
-    val quotes : LiveData<KanyeData>
-    get() = _quotes
+    private val _quote = MutableLiveData<KanyeData>()
+    val quote : LiveData<KanyeData>
+    get() = _quote
 
 
-    suspend fun getQuote() {
+    suspend fun getQuote():LiveData<KanyeData> {
         val response = UserApi.retrofitService.getQuote()
-        Log.d("REPO", "Kanye ${response.quote}")
-        _quotes.value = response
+        Log.d("REPO", "Kanye ${response.value}")
+        _quote.value = response.value
+
+        return response
     }
 
 }
