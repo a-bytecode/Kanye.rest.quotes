@@ -39,6 +39,8 @@ class QuotesAdapter: RecyclerView.Adapter<QuotesAdapter.ItemViewHolder>() {
         holder.cardView.setOnClickListener {
             holder.itemView.findNavController().navigate(List_FragmentDirections.actionListFragmentToDetailFragment(data.quote.toInt()))
         }
+
+
     }
 
     override fun getItemCount(): Int {

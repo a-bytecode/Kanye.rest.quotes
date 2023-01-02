@@ -39,9 +39,13 @@ class List_Fragment: Fragment() {
 
 
         viewModel.quotes.observe(viewLifecycleOwner, Observer {
-
             quoteAdapter.submitlist(it)
         })
+
+        binding.textInputListFragment.setOnClickListener {
+            var searchTerm = binding.textInputListFragment.text.toString()
+
+        }
 
     }
 }

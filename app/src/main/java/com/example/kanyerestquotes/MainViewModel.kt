@@ -45,4 +45,18 @@ class MainViewModel: ViewModel() {
         }
     }
 
+    fun search(term:String) {
+
+        viewModelScope.launch {
+
+            try {
+                repository.getQuote()
+
+            } catch (e:Exception) {
+
+            }
+        }
+
+    }
+
 }
