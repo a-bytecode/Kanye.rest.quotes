@@ -14,12 +14,11 @@ class Repository {
     get() = _quote
 
 
-    suspend fun getQuote():LiveData<KanyeData> {
+    suspend fun getQuote() {
         val response = UserApi.retrofitService.getQuote()
-        Log.d("REPO", "Kanye ${response.value}")
-        _quote.value = response.value
+        Log.d("REPO", "Kanye ${response}")
+        _quote.value = response
 
-        return response
     }
 
 }

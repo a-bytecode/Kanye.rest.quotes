@@ -36,8 +36,12 @@ class MainViewModel: ViewModel() {
         viewModelScope.launch {
             try {
                 repository.getQuote()
-                val response = repository.getQuote()
-                response.value?.let { _quotesList.value?.add(it) }
+                val response = repository.quote
+                Log.d("MainViewModel","Attempting to write in the list")
+                response.let{
+
+                    _quotesList.value?.add(it.value!!)
+                    Log.d("MainViewModel","writing to the list")}
             } catch (e:Exception) {
                 Log.e("MainViewModel","$e")
 

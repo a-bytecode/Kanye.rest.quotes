@@ -26,7 +26,7 @@ private val retrofit = Retrofit.Builder()
 
 interface UserApiService {
     @GET("https://api.kanye.rest")
-    suspend fun getQuote(): LiveData<KanyeData>
+    suspend fun getQuote(): KanyeData
 }
 
 object UserApi {
