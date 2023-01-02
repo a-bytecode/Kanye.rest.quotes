@@ -29,8 +29,6 @@ class List_Fragment: Fragment() {
         return binding.root
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val quoteAdapter = QuotesAdapter()
@@ -38,7 +36,7 @@ class List_Fragment: Fragment() {
         binding.quotesRecycler.adapter = quoteAdapter
 
 
-        viewModel.quote.observe(viewLifecycleOwner, Observer {
+        viewModel._quotesList.observe(viewLifecycleOwner, Observer {
             quoteAdapter.submitlist(it)
         })
 

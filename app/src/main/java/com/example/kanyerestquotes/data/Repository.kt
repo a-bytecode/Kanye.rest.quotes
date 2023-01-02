@@ -5,8 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.kanyerestquotes.data.model.KanyeData
 import com.example.kanyerestquotes.data.remote.UserApi
+import com.example.kanyerestquotes.local.QuoteDatabase
 
-class Repository {
+class Repository(private val database: QuoteDatabase) {
 
 
     private val _quote = MutableLiveData<KanyeData>()
@@ -15,8 +16,10 @@ class Repository {
 
 
     suspend fun getQuote() {
+
         val response = UserApi.retrofitService.getQuote()
         Log.d("REPO", "Kanye ${response}")
+        database.QuoteDatabaseDao.insert(response)
         _quote.value = response
 
     }

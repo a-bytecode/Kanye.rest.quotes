@@ -1,21 +1,27 @@
 package com.example.kanyerestquotes
 
 import android.animation.ObjectAnimator
+import android.app.Application
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kanyerestquotes.data.Repository
 import com.example.kanyerestquotes.data.model.KanyeData
+import com.example.kanyerestquotes.local.getDatabase
 import kotlinx.coroutines.launch
 
 
-class MainViewModel: ViewModel() {
+class MainViewModel(application:Application) : AndroidViewModel(application) {
 
 
-    val repository = Repository()
+    val database = getDatabase(application)
+
+
+    val repository = Repository(database)
 
     val quote = repository.quote
 
@@ -37,11 +43,10 @@ class MainViewModel: ViewModel() {
             try {
                 repository.getQuote()
                 val response = repository.quote
-                Log.d("MainViewModel","Attempting to write in the list")
-                response.let{
 
+                response.let{
                     _quotesList.value?.add(it.value!!)
-                    Log.d("MainViewModel","writing to the list")}
+                    }
             } catch (e:Exception) {
                 Log.e("MainViewModel","$e")
 
