@@ -15,12 +15,15 @@ class Repository(private val database: QuoteDatabase) {
     get() = _quote
 
 
+    //TODO die quotes werden aus der Datanbank durchgespeist
+
+    val quotes = database.QuoteDatabaseDao.getAll()
+
     suspend fun getQuote() {
         val response = UserApi.retrofitService.getQuote()
         Log.d("REPO", "Kanye ${response}")
         database.QuoteDatabaseDao.insert(response)
         _quote.value = response
-
     }
 
 }

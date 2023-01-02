@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kanyerestquotes.data.Repository
 import com.example.kanyerestquotes.data.model.KanyeData
+import com.example.kanyerestquotes.local.QuoteDatabase
 import com.example.kanyerestquotes.local.getDatabase
 import kotlinx.coroutines.launch
 
@@ -20,14 +21,17 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
 
     val database = getDatabase(application)
 
-
     val repository = Repository(database)
+
+    // TODO hier werden die quotes ausn repository durchgespeist
 
     val quote = repository.quote
 
-    val _quotesList = MutableLiveData<MutableList<KanyeData>>()
-        var quotesList = MutableLiveData<MutableList<KanyeData>>()
-            get() = _quotesList
+    val quotesList = repository.quotes
+
+//    private val _quotesList = MutableLiveData<MutableList<KanyeData>>()
+//        var quotesList = MutableLiveData<MutableList<KanyeData>>()
+//            get() = _quotesList
 
 
     fun buttonAnimator(button: Button) {
@@ -42,11 +46,11 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 repository.getQuote()
-                val response = repository.quote
-
-                response.let{
-                    _quotesList.value?.add(it.value!!)
-                    }
+//                val response = repository.quote
+//
+//                response.let{
+//                    _quotesList.value?.add(it.value!!)
+//                    }
             } catch (e:Exception) {
                 Log.e("MainViewModel","$e")
 
@@ -59,7 +63,6 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
         viewModelScope.launch {
 
             try {
-                repository.getQuote()
 
             } catch (e:Exception) {
 

@@ -35,7 +35,7 @@ class QuotesAdapter: RecyclerView.Adapter<QuotesAdapter.ItemViewHolder>() {
         val data : KanyeData = dataset[position]
         holder.quoteText.text = data.quote
         holder.cardView.setOnClickListener {
-            holder.itemView.findNavController().navigate(List_FragmentDirections.actionListFragmentToDetailFragment(data.quote.toInt()))
+            holder.itemView.findNavController().navigate(List_FragmentDirections.actionListFragmentToDetailFragment(data.quote))
         }
 
 

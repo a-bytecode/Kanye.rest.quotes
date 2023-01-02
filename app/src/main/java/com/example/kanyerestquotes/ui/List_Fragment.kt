@@ -31,6 +31,8 @@ class List_Fragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        super.onViewCreated(view, savedInstanceState)
+
         val quoteAdapter = QuotesAdapter()
 
         binding.quotesRecycler.adapter = quoteAdapter
@@ -38,6 +40,7 @@ class List_Fragment: Fragment() {
 
         viewModel.quotesList.observe(viewLifecycleOwner, Observer {
             quoteAdapter.submitlist(it)
+
         })
 
         binding.textInputListFragment.setOnClickListener {
