@@ -33,7 +33,6 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
 //        var quotesList = MutableLiveData<MutableList<KanyeData>>()
 //            get() = _quotesList
 
-
     fun buttonAnimator(button: Button) {
         // animatorTwo verändert ROTATION_X (X-Achse) von RotateButton laufend von 0f bis 360f
         // innerhalb 2000ms

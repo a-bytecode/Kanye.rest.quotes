@@ -33,7 +33,6 @@ class DetailFragment: Fragment() {
 
         binding.quotesTextDetail.text = quoteId
 
-
         binding.homeButton.setOnClickListener {
             findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToSplashFragment())
         }
