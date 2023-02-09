@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.kanyerestquotes.data.model.KanyeData
 import com.example.kanyerestquotes.data.remote.UserApi
 import com.example.kanyerestquotes.local.QuoteDatabase
+import com.example.kanyerestquotes.local.QuoteDatabaseDao
 
 class Repository(private val database: QuoteDatabase) {
 
@@ -14,6 +15,13 @@ class Repository(private val database: QuoteDatabase) {
     val quote : LiveData<KanyeData>
     get() = _quote
 
+
+    val dB = database.QuoteDatabaseDao
+    val getFavs = database.QuoteDatabaseDao.getAll()
+
+    suspend fun getAllFavByName(name:String):List<KanyeData> {
+        return dB.getAllFavByName(name)
+    }
 
     //TODO die quotes werden aus der Datanbank durchgespeist
 
@@ -25,5 +33,6 @@ class Repository(private val database: QuoteDatabase) {
         database.QuoteDatabaseDao.insert(response)
         _quote.value = response
     }
+
 
 }

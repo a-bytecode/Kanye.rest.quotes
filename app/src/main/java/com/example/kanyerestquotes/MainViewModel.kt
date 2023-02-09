@@ -29,9 +29,6 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
 
     val quotesList = repository.quotes
 
-//    private val _quotesList = MutableLiveData<MutableList<KanyeData>>()
-//        var quotesList = MutableLiveData<MutableList<KanyeData>>()
-//            get() = _quotesList
 
     fun buttonAnimator(button: Button) {
         // animatorTwo verändert ROTATION_X (X-Achse) von RotateButton laufend von 0f bis 360f
@@ -45,11 +42,6 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 repository.getQuote()
-//                val response = repository.quote
-//
-//                response.let{
-//                    _quotesList.value?.add(it.value!!)
-//                    }
             } catch (e:Exception) {
                 Log.e("MainViewModel","$e")
 
@@ -57,10 +49,15 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
         }
     }
 
+    fun getAllFavByName(name:String){
+        viewModelScope.launch {
+            repository.getAllFavByName(name)
+        }
+    }
+
     fun search(term:String) {
 
         viewModelScope.launch {
-
             try {
 
             } catch (e:Exception) {

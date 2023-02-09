@@ -21,4 +21,9 @@ interface QuoteDatabaseDao {
 
     @Update
     suspend fun update(quote:KanyeData)
+
+    @Query ("SELECT * FROM KanyeData WHERE quote LIKE '%' || :name || '%'")
+    suspend fun getAllFavByName(name:String): List<KanyeData>
+
+
 }

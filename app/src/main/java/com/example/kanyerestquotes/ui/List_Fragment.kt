@@ -1,6 +1,7 @@
 package com.example.kanyerestquotes.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,11 +41,23 @@ class List_Fragment: Fragment() {
 
         viewModel.quotesList.observe(viewLifecycleOwner, Observer {
             quoteAdapter.submitlist(it)
-
         })
 
-        binding.textInputListFragment.setOnClickListener {
-            var searchTerm = binding.textInputListFragment.text.toString()
+        binding.searchButtonList.setOnClickListener {
+            val searchTerm = binding.textInputListFragment.text.toString()
+
+            if (viewModel.quotesList.value != null) {
+                val foundFavQuote = viewModel.quotesList.value!!.find {
+                    it.quote == searchTerm
+                }
+
+                if (foundFavQuote != null) {
+                    viewModel.getAllFavByName(foundFavQuote.quote)
+                    Log.d("FOUNDQOUTE", "FOUNDQUOTE: ${foundFavQuote.quote}")
+                }
+
+            }
+
 
         }
 
