@@ -26,6 +26,10 @@ class List_Fragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        // Um das Laden der Liste aus der Datenbank direkt beim starten
+        // des Fragments zu gewährleisten,
+        // observen und befüllen wir die liste schon direkt aus der onCreatedView.
+
         binding = ListFragmentBinding.inflate(inflater)
         quoteAdapter = QuotesAdapter()
         binding.quotesRecycler.adapter = quoteAdapter
@@ -37,8 +41,9 @@ class List_Fragment: Fragment() {
 
             }
         })
-
-        viewModel.getAllFav()
+        viewModel.apiStatus() // hiermit setzten wir den ApiStatus auf "FoundResult"
+        // damit die Liste bei jedem start des Fragmentes sichtbar wird.
+        viewModel.getAllFav() // hiermit befüllen wir die Liste.
 
         return binding.root
     }
@@ -46,6 +51,23 @@ class List_Fragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.apiStatus.observe(viewLifecycleOwner) {
+
+
+            when(it) {
+
+                MainViewModel.ApiStatus.FOUND_RESULT -> {
+                    binding.quotesRecycler.visibility = View.VISIBLE
+                    binding.linearLayoutNoResult.visibility = View.GONE
+                }
+
+                MainViewModel.ApiStatus.NO_RESULT -> {
+                    binding.quotesRecycler.visibility = View.GONE
+                    binding.linearLayoutNoResult.visibility = View.VISIBLE
+                }
+            }
+        }
 
         binding.searchButtonList.setOnClickListener {
             val searchTerm = binding.textInputListFragment.text.toString()
@@ -55,10 +77,14 @@ class List_Fragment: Fragment() {
                     Log.d("FOUNDQOUTE", "FOUNDQUOTE: $searchTerm")
                 } else {
                     viewModel.getAllFav()
+                    binding.quotesRecycler.visibility = View.VISIBLE
+                    binding.linearLayoutNoResult.visibility = View.GONE
                     Log.d("DATENCHECK","ERHALTEN ${viewModel.getAllFav()}")
                     Toast.makeText(requireContext(),"Bitte Suchbegriff eingeben",
                         Toast.LENGTH_SHORT).show()
                 }
+
+
 
             }
 

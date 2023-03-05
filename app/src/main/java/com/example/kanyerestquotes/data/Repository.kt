@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.kanyerestquotes.data.model.KanyeData
 import com.example.kanyerestquotes.data.remote.UserApi
 import com.example.kanyerestquotes.local.QuoteDatabase
-import com.example.kanyerestquotes.local.QuoteDatabaseDao
 
 class Repository(private val database: QuoteDatabase) {
 
