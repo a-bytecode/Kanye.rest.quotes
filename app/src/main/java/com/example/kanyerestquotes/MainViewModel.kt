@@ -5,10 +5,7 @@ import android.app.Application
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.kanyerestquotes.data.Repository
 import com.example.kanyerestquotes.data.model.KanyeData
 import com.example.kanyerestquotes.local.QuoteDatabase
@@ -27,7 +24,10 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
 
     val quote = repository.quote
 
-    val quotesList = repository.quotes
+    val quotesLists = repository.quotes
+
+    private val _quotesList = MutableLiveData<List<KanyeData>>(listOf())
+    val quotesList: LiveData<List<KanyeData>> get() = _quotesList
 
 
     fun buttonAnimator(button: Button) {
@@ -51,20 +51,17 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
 
     fun getAllFavByName(name:String){
         viewModelScope.launch {
-            repository.getAllFavByName(name)
+            val quotes = database.QuoteDatabaseDao.getAllFavByName(name)
+//            repository.getAllFavByName(name)
+            _quotesList.postValue(quotes)
         }
     }
 
-    fun search(term:String) {
-
-        viewModelScope.launch {
-            try {
-
-            } catch (e:Exception) {
-
-            }
-        }
-
+    fun getAllFav() {
+        val quotes = database.QuoteDatabaseDao.getAll()
+        _quotesList.value = quotes.value
     }
+
+
 
 }

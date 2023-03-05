@@ -23,6 +23,7 @@ class Repository(private val database: QuoteDatabase) {
         return dB.getAllFavByName(name)
     }
 
+
     //TODO die quotes werden aus der Datanbank durchgespeist
 
     val quotes = database.QuoteDatabaseDao.getAll()

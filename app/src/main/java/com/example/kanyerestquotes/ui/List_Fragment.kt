@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -27,6 +28,9 @@ class List_Fragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ListFragmentBinding.inflate(inflater)
+
+        viewModel.getAllFav()
+
         return binding.root
     }
 
@@ -40,20 +44,22 @@ class List_Fragment: Fragment() {
 
 
         viewModel.quotesList.observe(viewLifecycleOwner, Observer {
-            quoteAdapter.submitlist(it)
+
+            if ( it != null) {
+                quoteAdapter.submitlist(it)
+            }
         })
 
         binding.searchButtonList.setOnClickListener {
             val searchTerm = binding.textInputListFragment.text.toString()
 
-            if (viewModel.quotesList.value != null) {
-                val foundFavQuote = viewModel.quotesList.value!!.find {
-                    it.quote == searchTerm
-                }
+                if (searchTerm.isNotEmpty()) {
+                    viewModel.getAllFavByName(searchTerm)
+                    Log.d("FOUNDQOUTE", "FOUNDQUOTE: $searchTerm")
+                } else {
 
-                if (foundFavQuote != null) {
-                    viewModel.getAllFavByName(foundFavQuote.quote)
-                    Log.d("FOUNDQOUTE", "FOUNDQUOTE: ${foundFavQuote.quote}")
+                    Toast.makeText(requireContext(),"Bitte Suchbegriff eingeben",
+                        Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -62,4 +68,4 @@ class List_Fragment: Fragment() {
         }
 
     }
-}
+
