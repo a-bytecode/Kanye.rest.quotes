@@ -9,17 +9,15 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kanyerestquotes.R
 import com.example.kanyerestquotes.data.model.KanyeData
-import com.example.kanyerestquotes.ui.DetailFragmentDirections
 import com.example.kanyerestquotes.ui.List_FragmentDirections
 
 class QuotesAdapter: RecyclerView.Adapter<QuotesAdapter.ItemViewHolder>() {
 
     private var dataset = listOf<KanyeData>()
 
-    fun submitlist(quote : KanyeData) {
-        dataset = listOf(quote)
+    fun submitlist(quoteList: List<KanyeData>) {
+        dataset = quoteList
         notifyDataSetChanged()
-
     }
 
     class ItemViewHolder(view: View):RecyclerView.ViewHolder(view) {
@@ -37,7 +35,7 @@ class QuotesAdapter: RecyclerView.Adapter<QuotesAdapter.ItemViewHolder>() {
         val data : KanyeData = dataset[position]
         holder.quoteText.text = data.quote
         holder.cardView.setOnClickListener {
-            holder.itemView.findNavController().navigate(List_FragmentDirections.actionListFragmentToDetailFragment(data.quote.toInt()))
+            holder.itemView.findNavController().navigate(List_FragmentDirections.actionListFragmentToDetailFragment(data.quote))
         }
 
 

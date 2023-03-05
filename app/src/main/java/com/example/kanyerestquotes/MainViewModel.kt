@@ -1,29 +1,33 @@
 package com.example.kanyerestquotes
 
 import android.animation.ObjectAnimator
+import android.app.Application
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.ImageButton
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.kanyerestquotes.data.Repository
 import com.example.kanyerestquotes.data.model.KanyeData
+import com.example.kanyerestquotes.local.QuoteDatabase
+import com.example.kanyerestquotes.local.getDatabase
 import kotlinx.coroutines.launch
 
 
-class MainViewModel: ViewModel() {
+class MainViewModel(application:Application) : AndroidViewModel(application) {
 
 
-    val repository = Repository()
+    val database = getDatabase(application)
 
-    val quotes = repository.quotes
+    val repository = Repository(database)
 
-    val _quotesList = MutableLiveData<List<KanyeData>>()
-            var quotesList = MutableLiveData<List<KanyeData>>()
-            get() = _quotesList
+    // TODO hier werden die quotes ausn repository durchgespeist
+
+    val quote = repository.quote
+
+//    private val _quotesList = MutableLiveData<List<KanyeData>>()
+//    val quotesList: LiveData<List<KanyeData>> get() = _quotesList
+
+    val favQuotes = MutableLiveData<List<KanyeData>>(listOf())
 
 
     fun buttonAnimator(button: Button) {
@@ -45,18 +49,24 @@ class MainViewModel: ViewModel() {
         }
     }
 
-    fun search(term:String) {
-
+    fun getAllFavByName(name:String){
         viewModelScope.launch {
-
-            try {
-                repository.getQuote()
-
-            } catch (e:Exception) {
-
-            }
+            val quotes = database.QuoteDatabaseDao.getAllFavByName(name)
+//            repository.getAllFavByName(name)
+            favQuotes.postValue(quotes)
         }
-
     }
+
+    fun getAllFav() {
+        database.QuoteDatabaseDao.getAll().observeForever(object : Observer<List<KanyeData>> {
+            override fun onChanged(data: List<KanyeData>) {
+                favQuotes.value = data
+                // Entferne den Observer, um ein Memory Leak zu vermeiden
+                database.QuoteDatabaseDao.getAll().removeObserver(this)
+            }
+        })
+    }
+
+
 
 }
