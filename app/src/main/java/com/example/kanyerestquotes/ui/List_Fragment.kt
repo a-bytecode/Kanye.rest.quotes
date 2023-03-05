@@ -15,9 +15,8 @@ import com.example.kanyerestquotes.databinding.ListFragmentBinding
 
 class List_Fragment: Fragment() {
 
-
-
     private lateinit var binding : ListFragmentBinding
+    private lateinit var quoteAdapter : QuotesAdapter
 
     private val viewModel : MainViewModel by activityViewModels()
 
@@ -28,32 +27,33 @@ class List_Fragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ListFragmentBinding.inflate(inflater)
-
         viewModel.getAllFav()
 
+        quoteAdapter = QuotesAdapter()
+        binding.quotesRecycler.adapter = quoteAdapter
+
+        viewModel.quotesList.observe(viewLifecycleOwner, Observer {
+            if ( it != null) {
+                quoteAdapter.submitlist(it)
+            }
+        })
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-
-        val quoteAdapter = QuotesAdapter()
-
-        binding.quotesRecycler.adapter = quoteAdapter
-
-
-        viewModel.quotesList.observe(viewLifecycleOwner, Observer {
-
-            if ( it != null) {
-                quoteAdapter.submitlist(it)
-            }
-        })
+//
+//        val quoteAdapter = QuotesAdapter()
+//
+//        binding.quotesRecycler.adapter = quoteAdapter
+//
 
         binding.searchButtonList.setOnClickListener {
             val searchTerm = binding.textInputListFragment.text.toString()
 
                 if (searchTerm.isNotEmpty()) {
+
                     viewModel.getAllFavByName(searchTerm)
                     Log.d("FOUNDQOUTE", "FOUNDQUOTE: $searchTerm")
                 } else {

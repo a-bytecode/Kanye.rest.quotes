@@ -26,8 +26,10 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
 
     val quotesLists = repository.quotes
 
-    private val _quotesList = MutableLiveData<List<KanyeData>>(listOf())
+    private val _quotesList = MutableLiveData<List<KanyeData>>()
     val quotesList: LiveData<List<KanyeData>> get() = _quotesList
+
+    val favQuotes = MutableLiveData<List<KanyeData>>(listOf())
 
 
     fun buttonAnimator(button: Button) {
