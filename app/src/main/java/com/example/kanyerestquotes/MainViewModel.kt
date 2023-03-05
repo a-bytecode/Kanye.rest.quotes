@@ -8,13 +8,13 @@ import android.widget.Button
 import androidx.lifecycle.*
 import com.example.kanyerestquotes.data.Repository
 import com.example.kanyerestquotes.data.model.KanyeData
-import com.example.kanyerestquotes.local.QuoteDatabase
 import com.example.kanyerestquotes.local.getDatabase
 import kotlinx.coroutines.launch
 
 
 class MainViewModel(application:Application) : AndroidViewModel(application) {
 
+    enum class ApiStatus { NO_RESULT, FOUND_RESULT }
 
     val database = getDatabase(application)
 
@@ -24,11 +24,11 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
 
     val quote = repository.quote
 
-//    private val _quotesList = MutableLiveData<List<KanyeData>>()
-//    val quotesList: LiveData<List<KanyeData>> get() = _quotesList
-
     val favQuotes = MutableLiveData<List<KanyeData>>(listOf())
 
+    private var _apiStatus = MutableLiveData<ApiStatus>()
+    val apiStatus : LiveData<ApiStatus>
+        get() = _apiStatus
 
     fun buttonAnimator(button: Button) {
         // animatorTwo verändert ROTATION_X (X-Achse) von RotateButton laufend von 0f bis 360f
@@ -52,8 +52,13 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
     fun getAllFavByName(name:String){
         viewModelScope.launch {
             val quotes = database.QuoteDatabaseDao.getAllFavByName(name)
-//            repository.getAllFavByName(name)
-            favQuotes.postValue(quotes)
+            if (quotes.isEmpty()) {
+                _apiStatus.value = ApiStatus.NO_RESULT }
+            else {
+                _apiStatus.value = ApiStatus.FOUND_RESULT
+                favQuotes.postValue(quotes)
+            }
+
         }
     }
 
@@ -65,6 +70,14 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
                 database.QuoteDatabaseDao.getAll().removeObserver(this)
             }
         })
+    }
+
+    fun setApiStatus(status:ApiStatus){
+        _apiStatus.value = status
+    }
+
+    fun apiStatus(){
+        setApiStatus(ApiStatus.FOUND_RESULT)
     }
 
 

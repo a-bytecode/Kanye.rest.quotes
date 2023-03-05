@@ -61,7 +61,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/francois_one"
-            android:text="created by Alexander Astrachanzev"
+            android:text="Created by Alexander Astrachanzev"
             android:textAlignment="center"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
