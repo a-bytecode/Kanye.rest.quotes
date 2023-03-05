@@ -24,10 +24,8 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
 
     val quote = repository.quote
 
-    val quotesLists = repository.quotes
-
-    private val _quotesList = MutableLiveData<List<KanyeData>>()
-    val quotesList: LiveData<List<KanyeData>> get() = _quotesList
+//    private val _quotesList = MutableLiveData<List<KanyeData>>()
+//    val quotesList: LiveData<List<KanyeData>> get() = _quotesList
 
     val favQuotes = MutableLiveData<List<KanyeData>>(listOf())
 
@@ -55,13 +53,18 @@ class MainViewModel(application:Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val quotes = database.QuoteDatabaseDao.getAllFavByName(name)
 //            repository.getAllFavByName(name)
-            _quotesList.postValue(quotes)
+            favQuotes.postValue(quotes)
         }
     }
 
     fun getAllFav() {
-        val quotes = database.QuoteDatabaseDao.getAll()
-        _quotesList.value = quotes.value
+        database.QuoteDatabaseDao.getAll().observeForever(object : Observer<List<KanyeData>> {
+            override fun onChanged(data: List<KanyeData>) {
+                favQuotes.value = data
+                // Entferne den Observer, um ein Memory Leak zu vermeiden
+                database.QuoteDatabaseDao.getAll().removeObserver(this)
+            }
+        })
     }
 
 
