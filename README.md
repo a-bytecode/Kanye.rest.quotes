@@ -1,16 +1,28 @@
-# [Kanye.rest.quotes](https://kanye.rest/)
+<a href="https://freeimage.host/i/HvlEXtt"><img src="https://iili.io/HvlEXtt.md.png" alt="KwLogo">
 
-A funny app that can read Kanye's quotes aloud using a text-to-speech announcer.
+# Kanye.Rest.Quotes :tm:
 
-_____________________________________________________________________________________
+It´s a small open source internet radio player written with kotlin
 
-## :fire: Features :fire:
+## Architecture patterns :white_check_mark:
+
+- LiveData
+* MainViewModel
++ Repository
+- Api Call: "OkHttpClient"
+* RoomDataBase (SQLite)
++ Data Access Object (DAO)
+
+## Features :rocket:
 
 * Text-to-speech announcer
-+ Favorites
-- 124 Kanye quotes [[source](https://github.com/ajzbc/kanye.rest/blob/master/quotes.json)]
++ Favorites List Searching
+- 124 Originial Kanye quotes
 
-_____________________________________________________________________________________
+## Source :star:
 
-<img src="https://iili.io/HWGHC2R.png" alt="Screenshot" width="150"/>
+_https://www.radio-browser.info_
 
+## Demo:
+
+<img src="https://iili.io/HWGHC2R.png" alt="Screenshot" width="300" height=600/>
