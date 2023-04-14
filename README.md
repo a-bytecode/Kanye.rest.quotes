@@ -2,7 +2,7 @@
 
 # Kanye.Rest.Quotes :tm:
 
-It´s a small open source internet radio player written with kotlin
+A funny app that can read Kanye's quotes aloud using a text-to-speech announcer.
 
 ## Architecture patterns :white_check_mark:
 
@@ -21,7 +21,7 @@ It´s a small open source internet radio player written with kotlin
 
 ## Source :star:
 
-_https://www.radio-browser.info_
+_https://kanye.rest_
 
 ## Demo:
 
